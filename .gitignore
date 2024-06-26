@@ -1,0 +1,3 @@
+.terraform/
+.terraform.lock.hcl
+lambda_function.zip
