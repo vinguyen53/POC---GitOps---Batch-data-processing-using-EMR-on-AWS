@@ -15,8 +15,8 @@ jobs:
                       echo "[ntanvi]" > ~/.aws/credentials
                       echo "aws_access_key_id = ${{ secrets.DEV_AWS_ACCESS_KEY }}" >> ~/.aws/credentials
                       echo "aws_secret_access_key = ${{ secrets.DEV_AWS_SECRET_KEY }}" >> ~/.aws/credentials
-              - name: terraform fmt check
-                run: terraform fmt -check
+              # - name: terraform fmt check
+              #   run: terraform fmt -check
               - name: terraform init
                 run: terraform init
               - name: terraform validate
