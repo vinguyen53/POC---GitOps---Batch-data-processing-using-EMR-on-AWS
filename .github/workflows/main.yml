@@ -1,0 +1,29 @@
+name: Data Pipeline EMR
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+        runs-on: ubuntu-latest
+        steps:
+              - name: check out repos
+                uses: actions/checkout@v3
+              - name: config aws credentials
+                run: |
+                      mkdir ~/.aws
+                      echo "[ntanvi]" > ~/.aws/credentials
+                      echo "aws_access_key_id = ${{ secrets.DEV_AWS_ACCESS_KEY }}" >> ~/.aws/credentials
+                      echo "aws_secret_access_key = ${{ secrets.DEV_AWS_SECRET_KEY }}" >> ~/.aws/credentials
+              - name: terraform fmt check
+                run: terraform fmt -check
+              - name: terraform init
+                run: terraform init
+              - name: terraform validate
+                run: terraform validate
+              - name: terraform workspace
+                run: terraform workspace select dev
+              - name: terraform plan
+                run: terraform plan
+              - name: terraform apply
+                run: terraform apply -auto-approve
